@@ -5,6 +5,7 @@ const API_KEY = '36703462-a851a985acd140dbfc53135d2';
 export default class NewsService {
   constructor() {
     this.page = 1;
+    this.maximum = 1;
     this.searchQuery = '';
   }
   async getNews() {
@@ -12,6 +13,7 @@ export default class NewsService {
       `${URL}?key=${API_KEY}&q=${this.searchQuery}&per_page=40&page=${this.page}`
     );
     this.incrementPage();
+    this.maximum = data.data.totalHits / 40
     return data.data;
   }
 

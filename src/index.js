@@ -49,7 +49,7 @@ async function getArticlesMarkup() {
       Notiflix.Notify.success(`"Hooray! We found ${articles.totalHits} images.`)
       const base = articles.hits
 
-        if (!base) {
+        if (newsService.page < newsService.maximum) {
             loadMoreBtn.hide();
             return Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
         }
@@ -94,12 +94,3 @@ function onError(err) {
   loadMoreBtn.hide();
   refs.gallery.innerHTML = "<p>Not found!</p>";
 }
-function handleScroll() {
-  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-
-  if (scrollTop + clientHeight >= scrollHeight - 5) {
-    fetchArticles();
-  }
-}
-
-window.addEventListener("scroll", handleScroll);
